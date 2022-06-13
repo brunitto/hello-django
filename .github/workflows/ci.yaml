@@ -3,39 +3,11 @@ name: ci
 on:
   push:
     branches: ["development"]
-  pull_request:
-    branches: ["development"]
 
 jobs:
   test:
     runs-on: ubuntu:latest
     container: python:3-bullseye
-    services:
-      postgres:
-        image: postgres:13-bullseye
-        env:
-          POSTGRES_DB: postgres
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
     steps:
-      - name: checkout
-        uses: actions/checkout@v3
-      - name: install dependencies
-        run: |
-          pip install --upgrade pip
-          pip install -r requirements.txt
-      - name: django check
-        run: |
-          python manage.py check
-      - name: django migrate
-        run: |
-          python manage.py migrate
-      - name: run tests
-        run: |
-          python manage.py test
-      env:
-      POSTGRES_HOST: db
-      POSTGRES_PORT: 5432
-      POSTGRES_NAME: postgres
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
+      - name: get Python version
+        run: python -V
