@@ -7,7 +7,6 @@ on:
 jobs:
   test:
     runs-on: ubuntu:latest
-    container: python:3-bullseye
     steps:
       - name: get Python version
         run: python -V
