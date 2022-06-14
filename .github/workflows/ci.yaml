@@ -45,5 +45,5 @@ jobs:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
 
-      - name: coverage report
+      - name: coverage report --fail-under=100
         run: coverage report --show-missing
