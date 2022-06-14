@@ -28,7 +28,7 @@ jobs:
         run: python manage.py check
 
       - name: django migrate
-        runs: python manage.py migrate
+        run: python manage.py migrate
         env:
           POSTGRES_HOST: db
           POSTGRES_PORT: 5432
@@ -37,7 +37,7 @@ jobs:
           POSTGRES_PASSWORD: postgres
 
       - name: django test (with coverage)
-        runs: coverage run --include 'main/*' manage.py test
+        run: coverage run --include 'main/*' manage.py test
         env:
           POSTGRES_HOST: db
           POSTGRES_PORT: 5432
@@ -46,4 +46,4 @@ jobs:
           POSTGRES_PASSWORD: postgres
 
       - name: coverage report
-        runs: coverage report --show-missing
+        run: coverage report --show-missing
