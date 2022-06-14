@@ -10,5 +10,12 @@ jobs:
     container:
       image: python:3-bullseye
     steps:
-      - name: get Python version
-        run: python -V
+
+      - name: checkout
+        uses: actions/checkout@v3
+
+      - name: install dependencies
+        run: pip install --upgrade pip && pip install -r requirements.txt
+
+      - name: django check
+        run: python manage.py check
