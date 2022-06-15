@@ -47,3 +47,30 @@ jobs:
 
       - name: coverage report
         run: coverage report --show-missing --fail-under=100
+
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: docker:20
+    steps:
+
+      - name: aws credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-2
+
+      - name: ecr login
+        id: ecr-login
+        uses: aws-actions/amazon-ecr-login@v1
+
+      - name: docker build and push to ecr
+        id: docker-build
+        run: |
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+        env:
+          ECR_REGISTRY: ${{ steps.ecr-login.outputs.registry }}
+          ECR_REPOSITORY: hello-django
+          IMAGE_TAG: latest
