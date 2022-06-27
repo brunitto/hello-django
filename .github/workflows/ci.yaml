@@ -77,4 +77,4 @@ jobs:
         env:
           ECR_REGISTRY: ${{ steps.ecr-login.outputs.registry }}
           ECR_REPOSITORY: default
-          IMAGE_TAG: development
+          IMAGE_TAG: hello-django:development
