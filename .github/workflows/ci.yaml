@@ -76,5 +76,5 @@ jobs:
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
         env:
           ECR_REGISTRY: ${{ steps.ecr-login.outputs.registry }}
-          ECR_REPOSITORY: default
-          IMAGE_TAG: hello-django:development
+          ECR_REPOSITORY: hello-django
+          IMAGE_TAG: development
