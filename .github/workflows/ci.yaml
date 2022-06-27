@@ -18,16 +18,16 @@ jobs:
           POSTGRES_PASSWORD: postgres
     steps:
 
-      - name: checkout
+      - name: Checkout
         uses: actions/checkout@v3
 
-      - name: install dependencies
+      - name: Install dependencies
         run: pip install --upgrade pip && pip install -r requirements.txt
 
-      - name: django check
+      - name: Django check
         run: python manage.py check
 
-      - name: django migrate
+      - name: Django migrate
         run: python manage.py migrate
         env:
           POSTGRES_HOST: db
@@ -36,7 +36,7 @@ jobs:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
 
-      - name: django test (with coverage)
+      - name: Django test (with coverage)
         run: coverage run --include 'main/*' manage.py test
         env:
           POSTGRES_HOST: db
@@ -45,7 +45,7 @@ jobs:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
 
-      - name: coverage report
+      - name: Coverage report
         run: coverage report --show-missing --fail-under=100
 
   build:
@@ -55,21 +55,21 @@ jobs:
       image: docker:20
     steps:
 
-      - name: checkout
+      - name: Checkout
         uses: actions/checkout@v3
 
-      - name: aws credentials
+      - name: AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
 
-      - name: ecr login
+      - name: ECR login
         id: ecr-login
         uses: aws-actions/amazon-ecr-login@v1
 
-      - name: docker build and push to ecr
+      - name: Docker build and push to ECR
         id: docker-build
         run: |
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
