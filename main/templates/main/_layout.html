@@ -1,0 +1,10 @@
+{% load static %}
+<html lang="en">
+  <head>
+    <title>Hello Django</title>
+    <link rel="stylesheet" href="{% static 'main/style.css' %}">
+  </head>
+  <body>
+    {% block content %}{% endblock %}
+  </body>
+</html>

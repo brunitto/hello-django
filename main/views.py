@@ -1,8 +1,8 @@
-from django.http import HttpResponse
+from django.template.response import TemplateResponse
 from django.views import View
 
 
 class HelloView(View):
 
     def get(self, request):
-        return HttpResponse("<h1>Hello Django</h1>")
+        return TemplateResponse(request, 'main/hello.html')
