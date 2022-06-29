@@ -14,6 +14,7 @@ consistent and easy to use development environment.
 3. PostgreSQL 13
 4. Docker 20
 5. VS Code + Remote Containers extension
+6. Terraform 1
 
 ## Initial setup
 
@@ -76,6 +77,16 @@ also available at: http://localhost:8000
 
 ## Development workflow
 
+To use git within the development container, it's necessary to start a SSH
+agent and add your keys, so the extension will forward the agent to the
+development container:
+
+    ssh-agent
+    ssh-add
+
+More information available at:
+https://code.visualstudio.com/docs/remote/containers#_using-ssh-keys
+
 Start from branch `main`:
 
     git checkout main
@@ -105,6 +116,10 @@ the `.github/workflows/ci.yaml` file.
 
 Commit and push to the `development` branch to start the CI.
 
+The CI workflow depends on a previous configuration, including creating an IAM
+user / policies to allow GitHub Actions to login, push and pull images from
+ECR.
+
 # Production environment
 
 ## Requirements
@@ -114,9 +129,13 @@ Commit and push to the `development` branch to start the CI.
 3. PostgreSQL 13
 4. Terraform 1
 5. GitHub Actions
-6. AWS ECR / AppRunner / RDS PostgreSQL
+6. AWS ECR / AppRunner / RDS
 
 ## Infrastructure provisioning
+
+This project uses Terraform to provision application-specific resources in AWS.
+The provisioning depends on existing resources, including a VPC, subnets,
+security groups (the default AWS setup works).
 
 Export AWS credentials environment variables:
 
@@ -125,7 +144,6 @@ Export AWS credentials environment variables:
 
 Initialize Terraform:
 
-    cd terraform
     terraform init
 
 This will create the Terraform configuration and state.
@@ -149,3 +167,7 @@ This project's continuous deployment uses GitHub Actions and is configured in
 the `.github/workflows/cd.yaml` file.
 
 Create a new release in GitHub to start the CD.
+
+The CD workflow depends on a previous configuration, including creating an IAM
+user / policies to allow GitHub Actions to login, push and pull images from
+ECR.
