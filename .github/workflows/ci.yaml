@@ -22,7 +22,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Install dependencies
-        run: pip install --upgrade pip && pip install -r requirements.txt
+        run: python -m pip install --upgrade pip && python -m pip install -r requirements.txt
 
       - name: Django check
         run: python manage.py check
