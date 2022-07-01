@@ -37,7 +37,7 @@ jobs:
           POSTGRES_PASSWORD: postgres
 
       - name: Django test (with coverage)
-        run: coverage run --include 'main/*' manage.py test
+        run: python -m coverage run --include 'main/*' manage.py test
         env:
           POSTGRES_HOST: db
           POSTGRES_PORT: 5432
@@ -46,7 +46,7 @@ jobs:
           POSTGRES_PASSWORD: postgres
 
       - name: Coverage report
-        run: coverage report --show-missing --fail-under=100
+        run: python -m coverage report --show-missing --fail-under=100
 
   build:
     needs: test
