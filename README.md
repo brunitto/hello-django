@@ -51,11 +51,11 @@ Run the tests
 
 Run the tests under coverage:
 
-    coverage run --include 'main/*' manage.py test
+    python -m coverage run --include 'main/*' manage.py test
 
 Check the coverage report:
 
-    coverage report --show-missing
+    python -m coverage report --show-missing
 
 This will ensure that are no code without tests.
 
@@ -67,13 +67,6 @@ Run the development server:
 
 This will start a simple development server within the container, available at:
 http://localhost:8000
-
-If you want to test using gunicorn:
-
-    gunicorn -w 2 core.wsgi
-
-This will start a production-ready development server within the container,
-also available at: http://localhost:8000
 
 ## Development workflow
 
