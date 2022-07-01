@@ -113,6 +113,12 @@ The CI workflow depends on a previous configuration, including creating an IAM
 user / policies to allow GitHub Actions to login, push and pull images from
 ECR.
 
+Yet, the CI workflow also depends on an existing ECR repository, that should
+be provisioned using Terraform:
+
+    terraform plan -target aws_ecr_repository.hello_django
+    terraform apply -target aws_ecr_repository.hello_django
+
 # Production environment
 
 ## Requirements
@@ -129,11 +135,6 @@ ECR.
 This project uses Terraform to provision application-specific resources in AWS.
 The provisioning depends on existing resources, including a VPC, subnets,
 security groups (the default AWS setup works).
-
-Export AWS credentials environment variables:
-
-    export AWS_ACCESS_KEY_ID="..."
-    export AWS_SECRET_ACCESS_KEY="..."
 
 Initialize Terraform:
 
@@ -153,6 +154,9 @@ Apply:
     terraform apply
 
 This will provision the required resources in AWS.
+
+Note: you will need to specify the database password. Use a strong password and
+save it in a reliable password manager.
 
 ## Continuous deployment (CD)
 
