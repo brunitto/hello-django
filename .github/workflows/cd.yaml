@@ -2,7 +2,7 @@ name: cd
 
 on:
   push:
-    tag: ["production-*"]
+    branch: ["release"]
   
 jobs:
   test:
@@ -82,7 +82,7 @@ jobs:
   provision:
     runs-on: ubuntu-latest
     container:
-      image: terraform:1.2.4
+      image: hashicorp/terraform:1.2.4
     steps:
 
       - name: Checkout
