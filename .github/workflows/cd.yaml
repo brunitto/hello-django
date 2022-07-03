@@ -120,7 +120,7 @@ jobs:
         run: echo "::set-output name=database_endpoint::$(terraform output -raw database_endpoint)"
 
     outputs:
-      database_endpoint: ${{ steps.terraform-output.database_endpoint }}
+      database_endpoint: ${{ steps.terraform-output.outputs.database_endpoint }}
 
   migrate:
     needs: provision
