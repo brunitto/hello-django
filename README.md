@@ -102,10 +102,16 @@ This will ensure that are no code without tests.
 
 Run the development server:
 
-    python manage.py runserver
+    python manage.py runserver 0.0.0.0:8000
 
 This will start a simple development server within the container, available at:
 http://localhost:8000.
+
+You can also use Gunicorn, also available at http://localhost:8000:
+
+    python -m gunicorn -w 2 -b 0.0.0.0:8000 core.wsgi
+
+This is how the application will run in production environment.
 
 ## Development workflow
 

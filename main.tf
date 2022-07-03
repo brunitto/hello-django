@@ -102,7 +102,7 @@ resource "aws_apprunner_service" "hello_django" {
       image_repository_type = "ECR"
       image_configuration {
         port          = 8000
-        start_command = "python manage.py runserver 0.0.0.0:8000"
+        start_command = "python -m gunicorn -w 2 -b 0.0.0.0:8000 core.wsgi"
         runtime_environment_variables = {
           APPLICATION_DEBUG_ENABLED = var.application_debug_enabled
           APPLICATION_SECRET_KEY    = var.application_secret_key
