@@ -30,7 +30,7 @@ resource "aws_ecr_repository" "hello_django" {
 resource "aws_db_instance" "hello_django" {
   identifier             = var.application_name
   engine                 = "postgres"
-  engine_version         = "13"
+  engine_version         = "13.6"
   instance_class         = "db.t3.micro"
   allocated_storage      = 10
   db_name                = var.database_name
