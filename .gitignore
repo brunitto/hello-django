@@ -10,5 +10,8 @@ venv/
 # Terraform providers directories
 .terraform/
 
+# Terraform plan files
+tfplan
+
 # Coverage report files
 .coverage
