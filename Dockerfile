@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1
-FROM python:3-bullseye
+FROM python:3.10-bullseye
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 
@@ -9,6 +9,7 @@ ARG GROUP_ID=1000
 RUN groupadd --gid ${GROUP_ID} ${USERNAME}
 RUN useradd --uid ${USER_ID} --gid ${GROUP_ID} -s /bin/bash -m ${USERNAME}
 USER ${USERNAME}
+ENV PATH=$PATH:$HOME/.local/bin
 
 WORKDIR /workspaces/hello-django/
 COPY core /workspaces/hello-django/core/

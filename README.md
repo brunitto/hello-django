@@ -4,12 +4,12 @@ A simple web application template.
 
 # Stack
 
-1. Python as programming language
-2. Django as web framework
-3. Bootstrap as interface components
-4. PostgreSQL as database
-5. Docker as containers manager
-6. Terraform as IaC
+1. Python 3.10 as programming language
+2. Django 4.0 as web framework
+3. Bootstrap 5.0 as interface components
+4. PostgreSQL 13.6 as database
+5. Docker 20.10 as containers manager
+6. Terraform 1.2 as IaC
 7. AWS as cloud provider
 8. GitHub as repo and workflows manager
 
@@ -102,10 +102,16 @@ This will ensure that are no code without tests.
 
 Run the development server:
 
-    python manage.py runserver
+    python manage.py runserver 0.0.0.0:8000
 
 This will start a simple development server within the container, available at:
 http://localhost:8000.
+
+You can also use Gunicorn, also available at http://localhost:8000:
+
+    python -m gunicorn -w 2 -b 0.0.0.0:8000 core.wsgi
+
+This is how the application will run in production environment.
 
 ## Development workflow
 

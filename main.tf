@@ -30,7 +30,7 @@ resource "aws_ecr_repository" "hello_django" {
 resource "aws_db_instance" "hello_django" {
   identifier             = var.application_name
   engine                 = "postgres"
-  engine_version         = "13"
+  engine_version         = "13.6"
   instance_class         = "db.t3.micro"
   allocated_storage      = 10
   db_name                = var.database_name
@@ -102,7 +102,7 @@ resource "aws_apprunner_service" "hello_django" {
       image_repository_type = "ECR"
       image_configuration {
         port          = 8000
-        start_command = "python manage.py runserver 0.0.0.0:8000"
+        start_command = "python -m gunicorn -w 2 -b 0.0.0.0:8000 core.wsgi"
         runtime_environment_variables = {
           APPLICATION_DEBUG_ENABLED = var.application_debug_enabled
           APPLICATION_SECRET_KEY    = var.application_secret_key
