@@ -2,7 +2,7 @@ name: cd
 
 on:
   push:
-    branch: ["release/*"]
+    branch: ["release/**"]
 
 env:
   APPLICATION_NAME: hello-django
