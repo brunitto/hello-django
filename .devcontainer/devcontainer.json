@@ -3,5 +3,5 @@
 	"dockerComposeFile": "../docker-compose.yaml",
 	"service": "app",
 	"workspaceFolder": "/workspaces/hello-django/",
-	"extensions": ["ms-python.python", "editorconfig.editorconfig"]
+	"extensions": ["ms-python.python", "editorconfig.editorconfig", "hashicorp.terraform"]
 }
