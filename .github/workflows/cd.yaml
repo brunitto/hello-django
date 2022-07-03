@@ -101,7 +101,7 @@ jobs:
           aws-region: us-east-1
 
       - name: Terraform init
-        run: terraform init -backend-config="${{ env.APPLICATION_NAME }}/key"
+        run: terraform init -backend-config="key=${{ env.APPLICATION_NAME }}/key"
 
       - name: Terraform plan
         run: terraform plan -out tfplan
