@@ -17,8 +17,8 @@ A simple web application template.
 
 Application settings are defined as environment variables:
 
-1. `APPLICATION_ENVIRONMENT`: sets the application's environment, valid values
-are `development` and `production`
+1. `APPLICATION_DEBUG_ENABLED`: enables / disables application debug, valid
+values are `yes` or `no`
 2. `APPLICATION_SECRET_KEY`: sets the application's secret that will be used to
 hash sensitive data like passwords (secret)
 3. `DATABASE_HOST`: sets the database host
@@ -30,7 +30,8 @@ hash sensitive data like passwords (secret)
 # Requirements
 
 1. AWS account 
-2. AWS network and security setup, including VPC, subnets, SGs, IGW
+2. AWS network and security setup, including VPC, subnets, route table, IGW,
+ACL, SGs
 3. AWS IAM users for developers (read-only) and GitHub Actions
 4. AWS S3 bucket for Terraform state
 5. GitHub user AWS credentials configured as secrets in GitHub repository
@@ -157,7 +158,7 @@ This project uses Terraform to provision infrastructure in AWS.
 
 Initialize Terraform:
 
-    terraform init
+    terraform init -backend-config="key=hello-django/key"
 
 This will create the Terraform configuration and state.
 
