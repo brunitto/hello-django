@@ -20,7 +20,7 @@ variable "application_name" {
 
 variable "application_version" {
   type    = string
-  default = "release/1.0.0"
+  default = "development"
 }
 
 variable "application_debug_enabled" {
@@ -46,6 +46,6 @@ variable "database_username" {
 
 variable "database_password" {
   type      = string
-  default   = "secret"
+  default   = "postgres"
   sensitive = true
 }

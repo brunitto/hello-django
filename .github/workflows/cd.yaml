@@ -38,7 +38,7 @@ jobs:
           DATABASE_PORT: 5432
           DATABASE_NAME: postgres
           DATABASE_USERNAME: postgres
-          DATABASE_PASSWORD: secret
+          DATABASE_PASSWORD: postgres
 
       - name: Django test (with coverage)
         run: python -m coverage run --include 'main/*' manage.py test
@@ -47,7 +47,7 @@ jobs:
           DATABASE_PORT: 5432
           DATABASE_NAME: postgres
           DATABASE_USERNAME: postgres
-          DATABASE_PASSWORD: secret
+          DATABASE_PASSWORD: postgres
 
       - name: Coverage report
         run: python -m coverage report --show-missing --fail-under=100
@@ -104,7 +104,13 @@ jobs:
         run: terraform init -backend-config="key=${{ env.APPLICATION_NAME }}/key"
 
       - name: Terraform plan
-        run: terraform plan -out tfplan
+        run: |
+          terraform plan \
+          -var "application_version=${{ github.ref_name }}" \
+          -var "application_debug_enabled=no" \
+          -var "application_secret_key=${{ secrets.APPLICATION_SECRET_KEY }}" \
+          -var "database_password=${{ secrets.DATABASE_PASSWORD }}" \
+          -out tfplan
 
       - name: Terraform apply
         run: terraform apply -auto-approve tfplan
