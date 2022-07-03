@@ -14,4 +14,4 @@ WORKDIR /workspaces/hello-django/
 COPY core /workspaces/hello-django/core/
 COPY main /workspaces/hello-django/main/
 COPY manage.py requirements.txt /workspaces/hello-django/
-RUN pip install --upgrade pip && pip install -r requirements.txt
+RUN python -m pip install --upgrade pip && python -m pip install -r requirements.txt
