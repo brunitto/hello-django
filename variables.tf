@@ -13,12 +13,39 @@ variable "default_security_group" {
   default = "sg-029cb8a3b93f35fa5"
 }
 
-variable "environment" {
-  type    = string
-  default = "production"
-}
-
 variable "application_name" {
   type    = string
   default = "hello-django"
+}
+
+variable "application_version" {
+  type    = string
+  default = "release/1.0.0"
+}
+
+variable "application_debug_enabled" {
+  type    = string
+  default = "no"
+}
+
+variable "application_secret_key" {
+  type      = string
+  default   = "secret"
+  sensitive = true
+}
+
+variable "database_name" {
+  type    = string
+  default = "postgres"
+}
+
+variable "database_username" {
+  type    = string
+  default = "postgres"
+}
+
+variable "database_password" {
+  type      = string
+  default   = "secret"
+  sensitive = true
 }
