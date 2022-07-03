@@ -1,27 +1,65 @@
 # HELLO-DJANGO
 
-A simple web application written in Django.
+A simple web application template.
+
+# Stack
+
+1. Python as programming language
+2. Django as web framework
+3. Bootstrap as interface components
+4. PostgreSQL as database
+5. Docker as containers manager
+6. Terraform as IaC
+7. AWS as cloud provider
+8. GitHub as repo and workflows manager
+
+# Application settings
+
+Application settings are defined as environment variables:
+
+1. `APPLICATION_ENVIRONMENT`: sets the application's environment, valid values
+are `development` and `production`
+2. `APPLICATION_SECRET_KEY`: sets the application's secret that will be used to
+hash sensitive data like passwords (secret)
+3. `DATABASE_HOST`: sets the database host
+4. `DATABASE_PORT`: sets the database port
+5. `DATABASE_NAME`: sets the database name
+6. `DATABASE_USERNAME`: sets the database username
+7. `DATABASE_PASSWORD`: sets the database password (secret)
+
+# Requirements
+
+1. AWS account 
+2. AWS network and security setup, including VPC, subnets, SGs, IGW
+3. AWS IAM users for developers (read-only) and GitHub Actions
+4. AWS S3 bucket for Terraform state
+5. GitHub user AWS credentials configured as secrets in GitHub repository
+(`AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY`)
+6. Application settings secrets configured as secrets in GitHub repository
+(`APPLICATION_SECRET_KEY` and `DATABASE_PASSWORD`)
 
 # Development environment
 
-This project uses Docker + VS Code Development Containers feature to provide a
+This project uses Docker + Code Development Containers feature to provide a
 consistent and easy to use development environment.
 
 ## Requirements
 
-1. Python 3
-2. Django 4
-3. PostgreSQL 13
-4. Docker 20
-5. VS Code + Remote Containers extension
-6. Terraform 1
+1. Windows 10 + WSL2 / macOS Monterey 12
+2. Docker 20
+3. Code (latest version)
+4. Remote Container extension (latest version)
 
 ## Initial setup
 
+Clone this repository:
+
+    cd ~/code/github/brunitto
+    git clone git@github.com:brunitto/hello-django.git
+
 Open in VS Code:
 
-    cd /path/to/hello-django
-    code .
+    code hello-django
 
 This will detect the development container configuration within `.devcontainer`
 directory and start the development environment, using the
@@ -66,7 +104,7 @@ Run the development server:
     python manage.py runserver
 
 This will start a simple development server within the container, available at:
-http://localhost:8000
+http://localhost:8000.
 
 ## Development workflow
 
@@ -93,48 +131,29 @@ Note: if the branch `development` exists, just checkout:
 
     git checkout development
 
-Add / commit / push:
+Add, commit and push:
 
     git add ...
     git commit ...
     git push ...
 
-This will ensure that stable code is in `main` branch and `unstable` code is in
+This will ensure that stable code is in `main` branch and "unstable" code is in
 `development` branch.
-
-# Continuous integration (CI)
-
-This project's continuous integration uses GitHub Actions and is configured in
-the `.github/workflows/ci.yaml` file.
-
-Commit and push to the `development` branch to start the CI.
-
-The CI workflow depends on a previous configuration, including creating an IAM
-user / policies to allow GitHub Actions to login, push and pull images from
-ECR.
-
-Yet, the CI workflow also depends on an existing ECR repository, that should
-be provisioned using Terraform:
-
-    terraform plan -target aws_ecr_repository.hello_django
-    terraform apply -target aws_ecr_repository.hello_django
 
 # Production environment
 
 ## Requirements
 
-1. Python 3
-2. Django 4
-3. PostgreSQL 13
-4. Terraform 1
-5. GitHub Actions
-6. AWS ECR / AppRunner / RDS
+1. AWS VPC
+2. AWS IAM
+3. AWS S3
+4. AWS RDS
+5. AWS App Runner
+6. AWS CloudWatch
 
 ## Infrastructure provisioning
 
-This project uses Terraform to provision application-specific resources in AWS.
-The provisioning depends on existing resources, including a VPC, subnets,
-security groups (the default AWS setup works).
+This project uses Terraform to provision infrastructure in AWS.
 
 Initialize Terraform:
 
@@ -155,16 +174,16 @@ Apply:
 
 This will provision the required resources in AWS.
 
-Note: you will need to specify the database password. Use a strong password and
-save it in a reliable password manager.
+# Continuous integration (CI)
 
-## Continuous deployment (CD)
+This project's continuous integration uses GitHub Actions and is configured in
+the `.github/workflows/ci.yaml` file.
+
+Commit and push to the `development` branch to start the CI workflow.
+
+# Continuous deployment (CD)
 
 This project's continuous deployment uses GitHub Actions and is configured in
 the `.github/workflows/cd.yaml` file.
 
-Create a new release in GitHub to start the CD.
-
-The CD workflow depends on a previous configuration, including creating an IAM
-user / policies to allow GitHub Actions to login, push and pull images from
-ECR.
+Commit and push to a `release/x.y.z` branch to trigger the CD workflow.
