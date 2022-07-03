@@ -175,6 +175,19 @@ Apply:
 
 This will provision the required resources in AWS.
 
+## Release workflow
+
+From a tested and working ref (commit or branch), create and push a new tag
+using semantic versioning:
+
+    git checkout development
+    git tag 1.0.0
+    git push origin 1.0.0
+
+Create a new release in GitHub, selecting the tag and the `development` branch.
+
+**Note: the tag name will be used as container image tag.**
+
 # Continuous integration (CI)
 
 This project's continuous integration uses GitHub Actions and is configured in
@@ -187,13 +200,4 @@ Commit and push to the `development` branch to start the CI workflow.
 This project's continuous deployment uses GitHub Actions and is configured in
 the `.github/workflows/cd.yaml` file.
 
-From `development` branch, create and push a new tag using semantic versioning:
-
-    git checkout development
-    git tag 1.0.0
-    git push origin 1.0.0
-
-Next, create a new release in GitHub, selecting the created tag and
-`development` branch to start the CD workflow.
-
-**Note: the tag name will be used as container image tag.**
+Create a new release in GitHub to trigger the CD workflow.
