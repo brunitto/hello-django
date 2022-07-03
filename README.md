@@ -187,4 +187,13 @@ Commit and push to the `development` branch to start the CI workflow.
 This project's continuous deployment uses GitHub Actions and is configured in
 the `.github/workflows/cd.yaml` file.
 
-Commit and push to a `release/x.y.z` branch to trigger the CD workflow.
+From `development` branch, create and push a new tag using semantic versioning:
+
+    git checkout development
+    git tag 1.0.0
+    git push origin 1.0.0
+
+Next, create a new release in GitHub, selecting the created tag and
+`development` branch to start the CD workflow.
+
+**Note: the tag name will be used as container image tag.**

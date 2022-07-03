@@ -1,9 +1,9 @@
 name: cd
 
 on:
-  push:
-    branches:
-      - "release/**"
+  release:
+    types:
+      - "published"
 
 env:
   APPLICATION_NAME: hello-django
@@ -81,7 +81,7 @@ jobs:
         env:
           ECR_REGISTRY: ${{ steps.ecr-login.outputs.registry }}
           ECR_REPOSITORY: ${{ env.APPLICATION_NAME }}
-          IMAGE_TAG: ${{ github.ref_name }}
+          IMAGE_TAG: ${{ github.ref }}
 
   provision:
     needs: build
