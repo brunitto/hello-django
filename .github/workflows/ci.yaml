@@ -2,7 +2,8 @@ name: ci
 
 on:
   push:
-    branches: ["development"]
+    branches:
+      - "development"
 
 env:
   APPLICATION_NAME: hello-django
