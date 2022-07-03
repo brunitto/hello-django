@@ -132,14 +132,12 @@ Note: if the branch `development` exists, just checkout:
 
     git checkout development
 
-Add, commit and push:
+Code, add files and commit when you have tested and working code:
 
     git add ...
     git commit ...
-    git push ...
 
-This will ensure that stable code is in `main` branch and "unstable" code is in
-`development` branch.
+Push the `development` branch to trigger the CI workflow!
 
 # Production environment
 
@@ -154,7 +152,9 @@ This will ensure that stable code is in `main` branch and "unstable" code is in
 
 ## Infrastructure provisioning
 
-This project uses Terraform to provision infrastructure in AWS.
+This project uses Terraform to provision infrastructure in AWS. This
+provisioning should be handled by the CI/CD workflows, but here's how it works,
+for documentation purpose.
 
 Initialize Terraform:
 
@@ -164,14 +164,14 @@ This will create the Terraform configuration and state.
 
 Plan:
 
-    terraform plan
+    terraform plan -out tfplan
 
 This will check the Terraform modules and AWS resources, and create a plan to
 provision the required resources.
 
 Apply:
 
-    terraform apply
+    terraform apply tfplan
 
 This will provision the required resources in AWS.
 
@@ -184,7 +184,7 @@ using semantic versioning:
     git tag 1.0.0
     git push origin 1.0.0
 
-Create a new release in GitHub, selecting the tag and the `development` branch.
+Create a new release in GitHub, selecting the tag, to trigger the CD workflow!
 
 **Note: the tag name will be used as container image tag.**
 
@@ -193,11 +193,7 @@ Create a new release in GitHub, selecting the tag and the `development` branch.
 This project's continuous integration uses GitHub Actions and is configured in
 the `.github/workflows/ci.yaml` file.
 
-Commit and push to the `development` branch to start the CI workflow.
-
 # Continuous deployment (CD)
 
 This project's continuous deployment uses GitHub Actions and is configured in
 the `.github/workflows/cd.yaml` file.
-
-Create a new release in GitHub to trigger the CD workflow.

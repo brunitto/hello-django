@@ -81,7 +81,7 @@ jobs:
         env:
           ECR_REGISTRY: ${{ steps.ecr-login.outputs.registry }}
           ECR_REPOSITORY: ${{ env.APPLICATION_NAME }}
-          IMAGE_TAG: ${{ github.ref }}
+          IMAGE_TAG: ${{ github.ref_name }}
 
   provision:
     needs: build
